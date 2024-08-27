@@ -1,0 +1,16 @@
+import cachorro from "./cachorro";
+
+export default class Dono {
+    constructor(nome: string, telefone: string){
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    nome!: string;
+    telefone!: string;
+    
+
+
+
+
+}
