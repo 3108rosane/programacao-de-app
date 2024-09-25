@@ -67,13 +67,13 @@
             <h2>contato</h2>
             <form>
                 <label for="name">nome completo:</label>
-                <input type="text" ind="name" name=" name" id="message"/>
+                <input type="text" ind="name" name=" name" id="message"oninput="verificarDisabled()">
 
                 <label for="email">email:</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email"oninput="verificarDisabled()">
 
                 <label for="message">mensagem:</label>
-                <textarea id="mensagem" name="mensagem" rows="5"></textarea>
+                <textarea id="mensagem" name="mensagem" rows="message"oninput= "verificarDisable()"></textarea>
 
                 <button type="submit" onclick="pegarInformacoes(event)">enviar</button>
             </form>

@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: floralwhite;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100vh;
+}
+
+.container{
+    background-color: white;
+    margin-top: 30px;
+    width: 60%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 20px 10px rgba(0,0,0,2);
+
+}
+.container h1{
+    margin-bottom: 20px;
+    text-align: center;
+    
+}
+.container .grupo-input{
+    display: flex;
+    flex-direction: row;
+
+}
+#tarefa-text{
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #cccc;
+    border-radius: 8px;
+    outline: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#add-tarefa {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #282828;
+    color: blue;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+#lista-de-tarefas{
+    list-style-type: none;
+    margin-top: 20px;
+
+}
+#lista-de-tarefas li{
+    background-color: aquamarine;
+    border: 1px solid #cccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.check, .delete, .edit {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 10px;
+
+}
+.check {
+    color: blueviolet;
+}
+.edit {
+    color: blue;
+}
+.delete {
+    color: brown;
+}
+.completed {
+    background-color: aqua !important;
+}
