@@ -28,6 +28,7 @@
 
 import './reset.css';
 import './index.css';
+import Swal from 'sweetalert2'
 import Tarefa from './Tarefa';
 
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
@@ -46,7 +47,7 @@ function adicionarTarefa(){
     const tarefaTexto = input.value.trim();
 
     if(tarefaTexto ===''){
-        alert("VOCÊ TENTOU ADICIONAR UMA TAREFA SEM TEXTO");
+        Swal.fire("VOCÊ TENTOU ADICIONAR UMA TAREFA SEM TEXTO");
         return;
     }
 
@@ -64,13 +65,14 @@ function adicionarTarefa(){
 function render(){
     const listaTarefas = document.getElementById("lista-tarefa") as HTMLUListElement;
     listaTarefas.innerHTML = "";
-console.log(tarefas)
+    console.log(tarefas)
+    
     for(var i = 0; i < tarefas.length; i ++) {
         const li = document.createElement("li");
-    
         if(tarefas[i] .getCompleted ()=== true) {
             li.classList.add("completed");
         }
+
         const span = document.createElement("span");
         span.textContent = tarefas[i].getText();
 
@@ -100,42 +102,56 @@ console.log(tarefas)
     }
 }
 
-// function trocaConcluir(id){
-//     const index = tarefas.findIndex(tarefa => tarefa.id === id);
-//     const valorAtual = tarefas[index].completed;
+function trocaConcluir(id: number){
+    const index = tarefas.findIndex(tarefa => tarefa.getId() === id);
+    const valorAtual = tarefas[index].getCompleted();
 
-//     tarefas[index].completed = !valorAtual;
-//     localStorage.setItem("tarefas",JSON.stringify(tarefas))
-//     render();
+    tarefas[index].setCompleted(!valorAtual);
+    localStorage.setItem("tarefas",JSON.stringify(tarefas))
+    render();
 
-// }
-// function editarTarefa(id){
-//     const index = tarefas.findIndex(tarefa => tarefa.id === id);
-//     const novotextoTarefa = prompt('Edite a tarefa',tarefas[index].text);
-//     if(novotextoTarefa !== null && novotextoTarefa.trim() !==''){
-//         tarefas[index].text = novotextoTarefa;
-//         localStorage.setItem("tarefas",JSON.stringify(tarefas))
-//         render();
-//     }
-// }
+}
+async function editarTarefa(id: number){
+    const index = tarefas.findIndex(tarefa => tarefa.getId() === id);
+   // const novotextoTarefa = prompt('Edite a tarefa',tarefas[index].getText());
+   const { value} = await Swal.fire({
+       title: "Editar tarefa",
+       input: "text",
+       inputLabel: "edite o texto",
+       inputValue: tarefas[index].getText(),
+       showCancelButton: true,
+       
+    });
+    if(value !== null && value.trim() !==''){
+        tarefas[index].setText(value.trim());
+        localStorage.setItem("tarefas",JSON.stringify(tarefas))
+        render();
+    }
+    console.log(value);
+}
 
-// function deletarTarefa(id){
-//     tarefas = tarefas.filter(tarefa => tarefa.id !== id);
-//     localStorage.setItem("tarefas",JSON.stringify(tarefas))
-//     render();
-// }
+
+function deletarTarefa(id: number){
+    const tarefasFiltradas = tarefas.filter(tarefa => tarefa.getId() !== id);
+    tarefas = tarefasFiltradas
+    localStorage.setItem("tarefas",JSON.stringify(tarefas))
+    render();
+}
 
 
 
-// function carregarTarefas(){
-//     const tarefasLocalStore = localStorage.getItem("tarefas");
-//     if(tarefasLocalStore){
-//         tarefas = JSON.parse(tarefasLocalStore);
-//         render();
+function carregarTarefas(){
+    const tarefasLocalStore = localStorage.getItem("tarefas");
+    if(tarefasLocalStore){
+        tarefas = JSON.parse(tarefasLocalStore);
+        render();
 
-//     }
-//}
-//(window as any).addPeloEnter = addPeloEnter;
+    }
+}
+(window as any).addPeloEnter = addPeloEnter;
 
 window.addPeloEnter = addPeloEnter;
 window.adicionarTarefa = adicionarTarefa;
+window.trocaConcluir = trocaConcluir;
+window.editarTarefa = editarTarefa;
+window.deletarTarefa = deletarTarefa;
