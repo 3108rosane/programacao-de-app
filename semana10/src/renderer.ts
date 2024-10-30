@@ -1,12 +1,13 @@
 
 
-import veiculo from './entity/veiculo';
-import './index.css';
+ import Veiculo from './entity/Veiculo';
+ import './index.css';
 
-var listaVeiculos :veiculo[] = [];
+var listaVeiculos :Veiculo[] = [];
 
-document.getElementById("botao-cadastrar")?.addEventListener("click", (event:MouseEvent) => {
-    event.preventDefault();
+ document.getElementById("botao-cadastrar")?.addEventListener("click",async (event:MouseEvent) => {
+     
+    
 
     var modelo = document.getElementById("modelo") as HTMLInputElement;
     var cor = document.getElementById("cor")as HTMLInputElement;
@@ -24,7 +25,7 @@ document.getElementById("botao-cadastrar")?.addEventListener("click", (event:Mou
     //     imagem: imagem.value,
     // }
 
-    const novoVeiculo = new veiculo (modelo.value,cor.value,Number(ano.value),Number(preco.value),placa.value,imagem.value);
+    const novoVeiculo = new Veiculo (modelo.value,cor.value,Number(ano.value),Number(preco.value),placa.value,imagem.value);
 
     listaVeiculos.push(novoVeiculo);
     (window as any).bancoAPI.createVeiculo(novoVeiculo)
@@ -55,5 +56,14 @@ document.getElementById("botao-cadastrar")?.addEventListener("click", (event:Mou
     }
     
     
-})
+ })
+
+ window.onload =  async () => {
+  const veiculos = await (window as any).bancoAPI.findAll();
+  for(var i = 0 ; i < veiculos.length; i++){
+    const veiculo = new Veiculo(veiculos[i].modelo,veiculos[i].cor, veiculos[i].ano, veiculos[i].valor, veiculos[i].placa,veiculos[i].imagem,veiculos[i].id);
+
+    listaVeiculos.push(veiculo)
+  }
+ }
 

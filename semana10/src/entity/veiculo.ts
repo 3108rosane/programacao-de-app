@@ -1,5 +1,5 @@
 import{v4 as uuid } from 'uuid'
-export default class veiculo {
+export default class Veiculo {
     private id: string;
     private modelo: string;
     private cor: string;
@@ -9,7 +9,7 @@ export default class veiculo {
     private imagem: string;
 
     constructor(modelo: string, cor: string, ano: number, preco:number, placa:string, imagem:string, id?: string){
-        this.id = id === null ? uuid() : this.id;
+        this.id = id === undefined ? uuid() : id;
         this.modelo = modelo;
         this.cor = cor;
         this.ano = ano;
